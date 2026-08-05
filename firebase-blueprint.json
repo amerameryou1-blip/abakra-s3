@@ -1,0 +1,64 @@
+{
+  "entities": {
+    "Complaint": {
+      "title": "User Complaint or Question Flag",
+      "description": "User reported issue, typo, or feedback regarding questions or app content",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "reason": { "type": "string", "maxLength": 100 },
+        "note": { "type": "string", "maxLength": 500 },
+        "question": { "type": "string", "maxLength": 1000 },
+        "context": { "type": "string", "maxLength": 200 },
+        "lang": { "type": "string", "enum": ["ar", "en"] },
+        "createdAt": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "resolved"] },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "reason", "question", "createdAt"]
+    },
+    "UserScore": {
+      "title": "User Exam Score",
+      "description": "Recorded exam or quiz completion score",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "categoryId": { "type": "string", "maxLength": 50 },
+        "score": { "type": "number" },
+        "total": { "type": "number" },
+        "percentage": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "categoryId", "score", "total", "createdAt"]
+    },
+    "Question": {
+      "title": "Quiz / Exam Question",
+      "description": "Question item stored in Firestore",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string", "maxLength": 50 },
+        "q": { "type": "string", "maxLength": 1000 },
+        "qEn": { "type": "string", "maxLength": 1000 },
+        "answer": { "type": "number" },
+        "explain": { "type": "string", "maxLength": 1000 }
+      },
+      "required": ["id", "category", "q", "answer"]
+    }
+  },
+  "firestore": {
+    "/complaints/{complaintId}": {
+      "schema": { "$ref": "#/entities/Complaint" },
+      "description": "Collection of user reported complaints, feedback and question flags"
+    },
+    "/user_scores/{scoreId}": {
+      "schema": { "$ref": "#/entities/UserScore" },
+      "description": "Collection of recorded quiz and exam scores"
+    },
+    "/questions/{questionId}": {
+      "schema": { "$ref": "#/entities/Question" },
+      "description": "Collection of knowledge quiz questions"
+    }
+  }
+}

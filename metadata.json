@@ -1,0 +1,6 @@
+{
+  "name": "Knowledge Palace",
+  "description": "An interactive bilingual educational hub featuring facts, timeline, code challenges, memory training, riddles, and daily health habit checkups.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

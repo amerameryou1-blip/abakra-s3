@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Lalezar", "Cairo", "IBM Plex Sans Arabic", sans-serif;
+  --font-hero: "Cairo", "Lalezar", "IBM Plex Sans Arabic", sans-serif;
+  --font-body: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-callig: "Aref Ruqaa", serif;
+  --color-ink-950: #060d12;
+  --color-ink-900: #0a161d;
+  --color-ink-800: #0f2130;
+  --color-ink-700: #162e40;
+  --color-ink-600: #1e3f55;
+  --color-gold-200: #f7e3b0;
+  --color-gold-300: #f2d489;
+  --color-gold-400: #e8b64c;
+  --color-gold-500: #d69d33;
+  --color-paper: #f3ecdc;
+  --color-paper-dim: #b8b0a0;
+}
+
+/* Hero title — clean static gradient, no heavy drop-shadow filters */
+.hero-title {
+  font-family: "Amiri", "Reem Kufi", "Lalezar", serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  background: linear-gradient(135deg, #fff1c4 0%, #e8b64c 40%, #7dd3c0 70%, #f2d489 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-title-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #f2d489 0%, #e8b64c 45%, #d69d33 100%);
+  color: #060d12;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+.btn-secondary {
+  background: #0f2130;
+  color: #f2d489;
+  border: 1.5px solid rgba(232, 182, 76, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.btn-secondary:hover {
+  background: #162e40;
+  color: #fff8e7;
+}
+
+/* Surfaces — Opaque/Fast background without backdrop-blur */
+.royal-panel {
+  position: relative;
+  background: #0a161d;
+  border: 1px solid rgba(232, 182, 76, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.royal-card {
+  position: relative;
+  background: #0f2130;
+  border: 1px solid rgba(232, 182, 76, 0.18);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.royal-card:hover {
+  border-color: rgba(232, 182, 76, 0.4);
+  transform: translateY(-2px);
+}
+.royal-heading {
+  font-family: "Amiri", "Lalezar", serif;
+  color: #f2d489;
+}
+.royal-label {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #e8b64c;
+}
+.royal-stat-num {
+  font-family: "Amiri", "Lalezar", serif;
+  color: #f2d489;
+}
+
+/* High-visibility answer choices */
+.choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  border-radius: 1rem;
+  border: 1.5px solid rgba(232, 182, 76, 0.28);
+  background: #0f2130;
+  color: #f3ecdc;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: start;
+  transition: background 0.15s, border-color 0.15s;
+}
+.choice-btn:hover:not(:disabled) {
+  border-color: rgba(232, 182, 76, 0.6);
+  background: #162e40;
+}
+.choice-btn:disabled {
+  cursor: default;
+}
+.choice-btn .choice-key {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(232, 182, 76, 0.35);
+  background: rgba(232, 182, 76, 0.12);
+  color: #e8b64c;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.choice-btn.is-correct {
+  border-color: #34d399 !important;
+  background: #064e3b !important;
+  color: #a7f3d0 !important;
+}
+.choice-btn.is-correct .choice-key {
+  border-color: #34d399;
+  background: rgba(52, 211, 153, 0.2);
+  color: #34d399;
+}
+.choice-btn.is-wrong {
+  border-color: #fb7185 !important;
+  background: #881337 !important;
+  color: #fecdd3 !important;
+}
+.choice-btn.is-wrong .choice-key {
+  border-color: #fb7185;
+  background: rgba(251, 113, 133, 0.2);
+  color: #fb7185;
+}
+.choice-btn.is-dim {
+  opacity: 0.4;
+  border-color: rgba(100, 90, 70, 0.25) !important;
+  background: rgba(12, 20, 28, 0.6) !important;
+  color: #8a7e68 !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: var(--font-body);
+  background: #060d12;
+  color: var(--color-paper);
+  overflow-x: hidden;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+button {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+
+/* Background system — static & lightweight */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #060d12;
+}
+.space-photo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: url("/images/space-bg.jpg") center/cover no-repeat;
+  opacity: 0.35;
+}
+.glass {
+  background: #0a161d;
+  border: 1px solid rgba(232, 182, 76, 0.18);
+}
+.card-hover {
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+}
+
+/* Memory game flip */
+.flip-perspective {
+  perspective: 800px;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease;
+}
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* No-op placeholder classes for compatibility */
+.ani-up, .ani-in, .ani-scale, .ani-float, .ani-spin, .ani-pulse, .ani-glow, .ani-shake, .ani-ticker, .ani-ticker-rev,
+.aurora, .orb, .orb-gold, .orb-teal, .orb-blue, .orb-rose, .orb-purple, .starfield, .starfield-b, .lattice-drift, .vignette,
+.glow-pulses, .gp, .dust, .ring-halo, .shimmer-band, .emblem-glow, .text-shimmer, .badge-float, .counter-glow, .orbit, .twinkle, .pulse-ring, .hero-bg-drift, .ring-spin, .ring-spin-rev, .hero-float {
+  animation: none !important;
+  transform: none !important;
+  filter: none !important;
+}

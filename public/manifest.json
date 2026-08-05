@@ -1,0 +1,18 @@
+{
+  "short_name": "عباقرة",
+  "name": "عباقرة - مصنع العباقرة",
+  "icons": [
+    {
+      "src": "/images/emblem-star.jpg",
+      "type": "image/jpeg",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#060d12",
+  "theme_color": "#060d12",
+  "display": "standalone",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl"
+}

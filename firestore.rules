@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() {
+      return request.resource.data;
+    }
+    function existing() {
+      return resource.data;
+    }
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Validation for Complaint
+    function isValidComplaint(data) {
+      return data.keys().hasAll(['id', 'reason', 'question', 'createdAt'])
+        && data.id is string && isValidId(data.id)
+        && data.reason is string && data.reason.size() <= 100
+        && data.question is string && data.question.size() <= 1000
+        && data.createdAt is string && data.createdAt.size() <= 100
+        && (!('note' in data) || (data.note is string && data.note.size() <= 500))
+        && (!('context' in data) || (data.context is string && data.context.size() <= 200))
+        && (!('lang' in data) || (data.lang in ['ar', 'en']))
+        && (!('status' in data) || (data.status in ['pending', 'reviewed', 'resolved']))
+        && (!('userId' in data) || (data.userId is string && data.userId.size() <= 128));
+    }
+
+    // Validation for UserScore
+    function isValidUserScore(data) {
+      return data.keys().hasAll(['id', 'categoryId', 'score', 'total', 'createdAt'])
+        && data.id is string && isValidId(data.id)
+        && data.categoryId is string && data.categoryId.size() <= 50
+        && data.score is number && data.score >= 0
+        && data.total is number && data.total > 0
+        && data.createdAt is string && data.createdAt.size() <= 100
+        && (!('percentage' in data) || data.percentage is number)
+        && (!('userId' in data) || (data.userId is string && data.userId.size() <= 128));
+    }
+
+    // Complaints collection
+    match /complaints/{complaintId} {
+      allow create: if isValidId(complaintId) && isValidComplaint(incoming());
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    // User Scores collection
+    match /user_scores/{scoreId} {
+      allow create: if isValidId(scoreId) && isValidUserScore(incoming());
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    // Questions collection
+    match /questions/{questionId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Health check / Connection test collection
+    match /test/{testId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Default catch-all rule
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
